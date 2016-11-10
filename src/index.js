@@ -67,6 +67,26 @@ app.get('/task2B',  (req, res) => {
 
 /* =========================================== */
 
+
+/** 
+ * Задача 2C: @username
+ */
+
+app.get('/task2C',  (req, res) => {     
+
+  function canonize(url) {    
+    const re = new RegExp('@?(https?:)?(\/\/)?(([-.a-zA-Z0-9]+)[^\/]*\/)?([@_.a-zA-Z0-9]*)', 'i');
+    const username = url.match(re)[5];
+    if (!username) return 'Invalid username';
+    return (username.charAt(0) === '@') ? username : '@' + username;    
+  }  
+
+  res.send(canonize(req.query.username));
+
+});
+
+/* =========================================== */
+
 app.listen(3000, () => {
   console.log('Your app listening on port 3000!');
 });
