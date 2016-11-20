@@ -87,6 +87,36 @@ app.get('/task2C',  (req, res) => {
 
 /* =========================================== */
 
+
+/** 
+ * Задача 2D: #colors
+ */
+
+app.get('/task2D',  (req, res) => {     
+
+  let result = "Invalid color";
+  let color = req.query.color;
+  console.log("Request: {" + color + "}");
+  if (color) {    
+    color = _.trim(color).toLowerCase();
+    const re = new RegExp('^#?([0-9a-f]{3}|[0-9a-f]{6})$', 'i'); 
+    let match_res = color.match(re);     
+    if (match_res) {
+      result = match_res[1];
+      if (result.length == 3) {
+        result = result[0] + result[0] + result[1] + result[1] + result[2] + result[2]; 
+      }
+      result = '#' + result;
+    }
+  }
+
+  res.send(result);
+
+});
+
+/* =========================================== */
+
+
 app.listen(3000, () => {
   console.log('Your app listening on port 3000!');
 });
