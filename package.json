@@ -32,6 +32,7 @@
     "babel-runtime": "^6.11.6",
     "cors": "^2.8.1",
     "express": "^4.14.0",
+    "hsl-to-hex": "^1.0.0",
     "xregexp": "^3.1.1"
   },
   "devDependencies": {

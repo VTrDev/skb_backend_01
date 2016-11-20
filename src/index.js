@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import _ from 'lodash';
 import XRegExp from 'xregexp';
+import hsl from 'hsl-to-hex';
 
 const app = express();
 app.use(cors());
@@ -92,6 +93,14 @@ app.get('/task2C',  (req, res) => {
  * Задача 2D: #colors
  */
 
+function convertDecToHex(num) {
+  if (num >= 0 && num <= 255) {
+    let str = Number(num).toString(16);
+    return str.length == 1 ? "0" + str : str;  
+  }
+  return null;
+};
+
 app.get('/task2D',  (req, res) => {     
 
   let result = "Invalid color";
@@ -99,15 +108,46 @@ app.get('/task2D',  (req, res) => {
   console.log("Request: {" + color + "}");
   if (color) {    
     color = _.trim(color).toLowerCase();
-    const re = new RegExp('^#?([0-9a-f]{3}|[0-9a-f]{6})$', 'i'); 
-    let match_res = color.match(re);     
-    if (match_res) {
+    
+    let re = new RegExp('^#?([0-9a-f]{3}|[0-9a-f]{6})$', 'i'); 
+    let match_res = color.match(re);
+    if (match_res) {      
       result = match_res[1];
       if (result.length == 3) {
         result = result[0] + result[0] + result[1] + result[1] + result[2] + result[2]; 
       }
-      result = '#' + result;
+      result = '#' + result;         
     }
+   
+    re = /^rgb\(\s*([0-9]+)\s*,\s*([0-9]+)\s*,\s*([0-9]+)\s*\)$/i; 
+    match_res = color.match(re);
+    if (match_res) {      
+      let r = convertDecToHex(match_res[1]);
+      let g = convertDecToHex(match_res[2]);
+      let b = convertDecToHex(match_res[3]);
+      if (r !== null && g !== null && b !== null) {
+        result = '#' + r + g + b;
+      }      
+    }  
+
+    color = color.replace(/%20/g, '');
+    re = /^hsl\(\s*([0-9]+)\s*,\s*([0-9]+)%\s*,\s*([0-9]+)%\s*\)$/i; 
+    match_res = color.match(re);
+    if (match_res) {      
+      let h = match_res[1];
+      console.log("h = " + h);
+      h = (h >= 0 && h <= 360) ? h : null;
+      let s = match_res[2];
+      console.log("s = " + s);
+      s = (s >= 0 && s <= 100) ? s : null;
+      let l = match_res[3];
+      console.log("l = " + l);
+      l = (l >= 0 && l <= 100) ? l : null;
+      if (h !== null && s !== null && l !== null) {
+        result = hsl(h, s, l);
+      }      
+    }  
+
   }
 
   res.send(result);
