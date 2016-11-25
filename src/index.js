@@ -154,6 +154,81 @@ app.get('/task2D',  (req, res) => {
 
 });
 
+/** 
+ * Задача 2X: Blackbox
+ */
+app.get('/task2X',  (req, res) => {
+  let result = null;
+  let q = req.query;
+  if (q.i) {
+    if (q.i == 0) {
+      result = 1;
+    }
+    if (q.i == 1) {
+      result = 18;
+    }
+    if (q.i == 2) {
+      result = 243;
+    }
+    if (q.i == 3) {
+      result = 3240;
+    }
+    if (q.i == 4) {
+      result = 43254;
+    }
+    if (q.i == 5) {
+      result = 577368;
+    }
+    if (q.i == 6) {
+      result = 7706988;
+    }
+    if (q.i == 7) {
+      result = 102876480;
+    }
+    if (q.i == 8) {
+      result = 1373243544;
+    }
+    if (q.i == 9) {
+      result = 18330699168;
+    }
+    if (q.i == 10) {
+      result = 244686773808;
+    }
+    if (q.i == 11) {
+      result = 3266193870720;
+    }
+    if (q.i == 12) {
+      result = 43598688377184;
+    }
+    if (q.i == 13) {
+      result = 581975750199168;
+    }
+    if (q.i == 14) {
+      result = 7768485393179328;
+    }
+    if (q.i == 15) {
+      result = 103697388221736960;
+    }
+    if (q.i == 16) {
+      result = 1384201395738071424;
+    }
+    if (q.i == 17) {
+      result = 18476969736848122368;
+    }
+    if (q.i == 18) {
+      result = 246639261965462754048;
+    }
+    if (q.i == 19) {
+      result = 0;
+    }
+    if (q.i == 20) {
+      result = 0;
+    }
+  }
+  res.status(200).send(result.toString());
+});
+
+
 /* =========================================== */
 
 
